@@ -33,8 +33,8 @@ export default function Login({ navigation, GlobalState }) {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TouchableOpacity style={commonStyles.button} onPress={handleLogin}>
+        <Text style={commonStyles.buttonText}>Login</Text>
       </TouchableOpacity>
     </View>
   );
