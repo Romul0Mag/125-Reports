@@ -43,27 +43,41 @@ export default function Home({ navigation, GlobalState }) {
     navigation.navigate("ChosenTask");
   };
 
+  const handleCreateReport = () => {
+    navigation.navigate("CreateReport");
+  };
+
+  const handleViewReports = () => {
+    navigation.navigate("ViewReports");
+  };
+
   return (
     <View style={commonStyles.screen}>
       <Header />
       <View style={commonStyles.body}>
-        <TextInput
+        {/* <TextInput
           style={commonStyles.input}
           onChangeText={setTask}
           value={task}
           placeholder="To do Task..."
-        />
+        /> */}
         <TouchableOpacity
           style={commonStyles.button}
-          onPress={() => handleSaveTask()}
+          onPress={() => handleCreateReport()}
         >
-          <Text style={commonStyles.buttonText}>Submit</Text>
+          <Text style={commonStyles.buttonText}>Criar relatório</Text>
         </TouchableOpacity>
-        <FlatList
+        <TouchableOpacity
+          style={commonStyles.button}
+          onPress={() => handleViewReports()}
+        >
+          <Text style={commonStyles.buttonText}>Visualizar relatórios</Text>
+        </TouchableOpacity>
+        {/* <FlatList
           data={toDoList}
           renderItem={renderItem}
           keyExtractor={(item, zIndex) => zIndex}
-        />
+        /> */}
       </View>
       <Footer navigation={navigation} />
     </View>

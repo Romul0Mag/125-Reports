@@ -5,7 +5,7 @@ import { commonStyles } from "../styles/styles";
 export default function Header() {
   return (
     <View style={commonStyles.header}>
-      <Text style={commonStyles.text}>My to do list</Text>
+      <Text style={commonStyles.text}>125 Reports</Text>
     </View>
   );
 }

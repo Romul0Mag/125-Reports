@@ -7,6 +7,8 @@ import registerNNPushToken from "native-notify";
 import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
 import ChosenTask from "./src/screens/ChosenTask";
+import CreateReport from "./src/screens/CreateReport";
+import ViewReports from "./src/screens/ViewReports";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,14 @@ export default function App() {
 
         <Stack.Screen name="ChosenTask" options={{ headerShown: false }}>
           {(props) => <ChosenTask {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="CreateReport" options={{ headerShown: false }}>
+          {(props) => <CreateReport {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="ViewReports" options={{ headerShown: false }}>
+          {(props) => <ViewReports {...props} GlobalState={GlobalState} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
