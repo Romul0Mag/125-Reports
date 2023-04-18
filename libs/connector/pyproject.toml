@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "connector"
+version = "0.1.0"
+description = ""
+authors = ["lhzuin <luishenriquezuinruiz@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^1.4.39"
+pg8000 = "^1.29.1"
+cloud-sql-python-connector = "^0.8.0"
+google-auth = "^2.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

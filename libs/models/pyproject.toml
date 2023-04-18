@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "models"
+version = "0.1.0"
+description = ""
+authors = ["lhzuin <luishenriquezuinruiz@gmail.com>"]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^1.4.39"
+
+
+[tool.poetry.group.dev.dependencies]
+sqlalchemy2-stubs = "^0.0.2a27"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
