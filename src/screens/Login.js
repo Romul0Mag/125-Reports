@@ -8,13 +8,35 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../styles/styles";
+import auth from '../config/firebase';
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword } from "firebase/auth";
+import { ToastAndroid } from 'react-native';
 
 export default function Login({ navigation, GlobalState }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    ToastAndroid.show(errorCode, ToastAndroid.SHORT);
+  });
+  }
   const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
     navigation.navigate("Home");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    ToastAndroid.show(errorCode, ToastAndroid.SHORT);
+  });
+    
   };
 
   return (
@@ -35,6 +57,9 @@ export default function Login({ navigation, GlobalState }) {
       />
       <TouchableOpacity style={commonStyles.button} onPress={handleLogin}>
         <Text style={commonStyles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={commonStyles.button} onPress={handleSignUp}>
+        <Text style={commonStyles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
