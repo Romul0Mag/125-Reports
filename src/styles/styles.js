@@ -137,4 +137,6 @@ export const commonStyles = StyleSheet.create({
     position: 'relative',
     top: 35,
   },
+  icon: {
+  },
 });

@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { commonStyles } from "../styles/styles";
 
@@ -36,13 +36,14 @@ export default function Home({ navigation }) {
                     style={commonStyles.card}
                     onPress={() => handleCreateReport()}
                 >
-                    
+                    <Icon name="plus" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Criar Relatórios</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={commonStyles.card}
                     onPress={() => handleViewReports()}
                 >
+                    <Icon name="page-search" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Ver Relatórios</Text>
                 </TouchableOpacity>
             </View>
@@ -51,12 +52,14 @@ export default function Home({ navigation }) {
                     style={commonStyles.card}
                     onPress={() => handleUploadCloud()}
                 >
+                    <Icon name="page-edit" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Enviar Dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={commonStyles.card}
                     onPress={() => handleConfigurations()}
                 >
+                    <Icon name="page-edit" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Configurações</Text>
                 </TouchableOpacity>
             </View>
