@@ -6,7 +6,8 @@ import Footer from "../Components/Footer";
 
 import { commonStyles } from "../styles/styles";
 
-export default function ChosenTask({ navigation, GlobalState }) {
+
+export default function CreateReport({ navigation, GlobalState }) {
   const { chosenTask } = GlobalState;
   const [clientName, setClientName] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -14,13 +15,11 @@ export default function ChosenTask({ navigation, GlobalState }) {
   const [contact, setContact] = useState("");
   const [department, setDepartment] = useState("");
   const [telNumber, setTelNumber] = useState("");
-
   
-
   return (
     <View style={commonStyles.screen}>
       <Header />
-      <View style={commonStyles.container}>
+      <View style={commonStyles.createReportContainer}>
       <Text style={commonStyles.titulo}>Relatório de Manutenção Preventiva - Nobreak</Text>
 
         <View style={commonStyles.campoContainer}>

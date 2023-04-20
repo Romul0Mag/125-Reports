@@ -8,6 +8,7 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   body: {
     flex: 8,
     width: "100%",
@@ -15,6 +16,7 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   header: {
     flex: 1,
     width: "100%",
@@ -32,6 +34,7 @@ export const commonStyles = StyleSheet.create({
     elevation: 5,
     zIndex: 5,
   },
+
   footer: {
     flex: 1,
     width: "100%",
@@ -50,6 +53,13 @@ export const commonStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#14141410",
   },
+
+  title: {
+    fontSize: 32,
+    marginBottom: 16,
+    color: "white",
+  },
+
   text: {
     fontSize: 18,
     fontWeight: "900",
@@ -73,10 +83,12 @@ export const commonStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   buttonText: {
     color: "white",
     fontWeight: "900",
   },
+
   input: {
     backgroundColor: "white",
     padding: 15,
@@ -94,7 +106,7 @@ export const commonStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  container: {
+  createReportContainer: {
     flex: 8,
     padding: 20,
     width: "100%",
@@ -122,5 +134,56 @@ export const commonStyles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 10,
     borderRadius: 5,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",},
+    
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  card: {
+    flex: 1,
+    height: 150,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardText: {
+    color: "black",
+    fontWeight: "900",
+    position: 'relative',
+    top: 35,
+  },
+  container_settings: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card_settings: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  icon_settings: {
+    marginRight: 16,
+  },
+  text_settings: {
+    flex: 1,
+    fontSize: 16,
+    color: '#555',
   },
 });

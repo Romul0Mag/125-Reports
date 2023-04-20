@@ -13,7 +13,7 @@ export default function ChosenTask({ navigation, GlobalState }) {
     <View style={commonStyles.screen}>
       <Header />
       <View style={commonStyles.body}>
-        <Text>{chosenTask.task}</Text>
+        <Text>Upload</Text>
       </View>
       <Footer navigation={navigation} />
     </View>
