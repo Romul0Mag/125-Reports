@@ -94,4 +94,33 @@ export const commonStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  container: {
+    flex: 8,
+    padding: 20,
+    width: "100%",
+    backgroundColor: "#14141410",
+    alignItems: "center"
+  },
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  campoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  rotulo: {
+    marginRight: 10,
+    fontSize: 18,
+  },
+  campo: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+  },
 });
