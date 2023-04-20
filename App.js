@@ -7,6 +7,8 @@ import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
 import CreateReport from "./src/screens/CreateReport";
 import ViewReports from "./src/screens/ViewReports";
+import Settings from "./src/screens/CreateReport";
+import UploadCloud from "./src/screens/ViewReports";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,15 @@ export default function App() {
         <Stack.Screen name="ViewReports" options={{ headerShown: false }}>
           {(props) => <ViewReports {...props} GlobalState={GlobalState} />}
         </Stack.Screen>
+
+        <Stack.Screen name="Settings" options={{ headerShown: false }}>
+          {(props) => <Settings {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="UploadCloud" options={{ headerShown: false }}>
+          {(props) => <UploadCloud {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
