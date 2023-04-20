@@ -36,14 +36,14 @@ export default function Home({ navigation }) {
                     style={commonStyles.card}
                     onPress={() => handleCreateReport()}
                 >
-                    <Icon name="plus" size={50} color="#122CCB" style={commonStyles.icon} />
+                    <Icon name="file-text" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Criar Relatórios</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={commonStyles.card}
                     onPress={() => handleViewReports()}
                 >
-                    <Icon name="page-search" size={50} color="#122CCB" style={commonStyles.icon} />
+                    <Icon name="folder-open" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Ver Relatórios</Text>
                 </TouchableOpacity>
             </View>
@@ -52,14 +52,14 @@ export default function Home({ navigation }) {
                     style={commonStyles.card}
                     onPress={() => handleUploadCloud()}
                 >
-                    <Icon name="page-edit" size={50} color="#122CCB" style={commonStyles.icon} />
+                    <Icon name="cloud-upload" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Enviar Dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={commonStyles.card}
                     onPress={() => handleConfigurations()}
                 >
-                    <Icon name="page-edit" size={50} color="#122CCB" style={commonStyles.icon} />
+                    <Icon name="gear" size={50} color="#122CCB" style={commonStyles.icon} />
                     <Text style={commonStyles.cardText}>Configurações</Text>
                 </TouchableOpacity>
             </View>

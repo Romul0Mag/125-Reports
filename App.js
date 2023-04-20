@@ -7,8 +7,8 @@ import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
 import CreateReport from "./src/screens/CreateReport";
 import ViewReports from "./src/screens/ViewReports";
-import Settings from "./src/screens/CreateReport";
-import UploadCloud from "./src/screens/ViewReports";
+import Settings from "./src/screens/Settings";
+import UploadCloud from "./src/screens/UploadCloud";
 
 const Stack = createNativeStackNavigator();
 

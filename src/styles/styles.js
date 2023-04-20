@@ -137,6 +137,25 @@ export const commonStyles = StyleSheet.create({
     position: 'relative',
     top: 35,
   },
-  icon: {
+  container_settings: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card_settings: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  icon_settings: {
+    marginRight: 16,
+  },
+  text_settings: {
+    flex: 1,
+    fontSize: 16,
+    color: '#555',
   },
 });
