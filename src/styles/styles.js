@@ -109,6 +109,32 @@ export const commonStyles = StyleSheet.create({
 
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "cover",},
+    
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  card: {
+    flex: 1,
+    height: 150,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardText: {
+    color: "black",
+    fontWeight: "900",
+    position: 'relative',
+    top: 35,
   },
 });
