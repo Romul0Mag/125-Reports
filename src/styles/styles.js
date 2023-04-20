@@ -8,6 +8,7 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   body: {
     flex: 8,
     width: "100%",
@@ -15,6 +16,7 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   header: {
     flex: 1,
     width: "100%",
@@ -32,6 +34,7 @@ export const commonStyles = StyleSheet.create({
     elevation: 5,
     zIndex: 5,
   },
+
   footer: {
     flex: 1,
     width: "100%",
@@ -50,6 +53,13 @@ export const commonStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#14141410",
   },
+
+  title: {
+    fontSize: 32,
+    marginBottom: 16,
+    color: "white",
+  },
+
   text: {
     fontSize: 18,
     fontWeight: "900",
@@ -73,10 +83,12 @@ export const commonStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   buttonText: {
     color: "white",
     fontWeight: "900",
   },
+
   input: {
     backgroundColor: "white",
     padding: 15,
@@ -93,5 +105,10 @@ export const commonStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
   },
 });

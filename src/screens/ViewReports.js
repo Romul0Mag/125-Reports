@@ -6,9 +6,7 @@ import Footer from "../Components/Footer";
 
 import { commonStyles } from "../styles/styles";
 
-export default function ChosenTask({ navigation, GlobalState }) {
-  const { chosenTask } = GlobalState;
-
+export default function ViewReport({ navigation }) {
   return (
     <View style={commonStyles.screen}>
       <Header />
