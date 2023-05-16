@@ -11,6 +11,7 @@ SQLAlchemy = "^1.4.39"
 pandas = "^2.0.0"
 connector = {path = "../../libs/connector"}
 models = {path = "../../libs/models"}
+fastapi = "^0.95.1"
 
 
 [build-system]
