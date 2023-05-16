@@ -5,7 +5,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
 import { commonStyles } from "../styles/styles";
-
+import axios from 'axios';
 
 export default function CreateReport({ navigation, GlobalState }) {
   const { chosenTask } = GlobalState;
@@ -15,6 +15,23 @@ export default function CreateReport({ navigation, GlobalState }) {
   const [contact, setContact] = useState("");
   const [department, setDepartment] = useState("");
   const [telNumber, setTelNumber] = useState("");
+
+  const createReport = async () => {
+    reportData = useState({
+      company_id: 2,
+      equipment_id: 2,
+      user_id: 2,
+      types: 'preventiva'
+    })
+    try {
+      const response = await axios.post('http://localhost:8000/addresses', reportData);
+      // O endereço foi criado com sucesso
+      console.log(response.data);
+    } catch (error) {
+      // Ocorreu um erro ao criar o endereço
+      console.error(error);
+    }
+  };
   
   return (
     <View style={commonStyles.screen}>
