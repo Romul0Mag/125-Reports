@@ -8,7 +8,7 @@ authors = ["lhzuin <luishenriquezuinruiz@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 SQLAlchemy = "^1.4.39"
-
+models = {path = "../../libs/models"}
 
 [tool.poetry.group.dev.dependencies]
 sqlalchemy2-stubs = "^0.0.2a27"
