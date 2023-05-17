@@ -14,6 +14,7 @@ models = {path = "../../libs/models"}
 fastapi = "^0.95.1"
 uvicorn = "^0.22.0"
 pydantic = "^1.10.7"
+httpx = "^0.24.0"
 
 
 [build-system]

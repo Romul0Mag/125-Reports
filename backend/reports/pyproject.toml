@@ -1,17 +1,18 @@
 [tool.poetry]
-name = "models"
+name = "example"
 version = "0.1.0"
 description = ""
 authors = ["lhzuin <luishenriquezuinruiz@gmail.com>"]
-
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 SQLAlchemy = "^1.4.39"
-
-
-[tool.poetry.group.dev.dependencies]
-sqlalchemy2-stubs = "^0.0.2a27"
+pandas = "^2.0.0"
+connector = {path = "../../libs/connector"}
+models = {path = "../../libs/models"}
+fastapi = "^0.95.2"
+httpx = "^0.24.0"
 
 
 [build-system]
