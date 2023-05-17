@@ -8,7 +8,7 @@ from typing import List
 app = FastAPI()
 
 @app.post("/reports/", response_model=Report)
-def create_user(report: ReportCreate):
+def create_report(report: ReportCreate):
     db = Db()
     # convert Pydantic model to DataFrame
     df = pd.json_normalize(jsonable_encoder(report))

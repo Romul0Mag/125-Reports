@@ -11,7 +11,7 @@ def test_create_report():
         "equipment_id": 'c8229bbc-2fb2-4f1d-bc01-0dba8490a569',
         "user_id": '678ad847-65be-40f6-9c61-348b9e99f29a',
         "type": "preventiva"
-    }  # replace with actual fields of your ReportCreate model
+    } 
     response = client.post("/reports/", json=report_data)
     assert response.status_code == 200
     data = response.json()
