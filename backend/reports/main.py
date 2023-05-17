@@ -3,6 +3,7 @@ from fastapi.encoders import jsonable_encoder
 import pandas as pd
 from db_connector import Db
 from fastapi_models import ReportBase, ReportCreate, Report
+from typing import List
 
 app = FastAPI()
 
@@ -21,4 +22,18 @@ def create_user(report: ReportCreate):
     if created_report is None:
         raise HTTPException(status_code=400, detail="Report not created")
     print(created_report)
-    return created_report
+    return Report.from_orm(created_report)
+
+
+@app.get("/reports/{company_name}", response_model=List[Report])
+def read_report(company_name: str):
+    db = Db()
+
+    reports = db.get_report_from_company_name(company_name)
+    if reports is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    fast_api_reports = []
+    for report in reports:
+        obj = Report.from_orm(report)
+        fast_api_reports.append(obj)
+    return fast_api_reports

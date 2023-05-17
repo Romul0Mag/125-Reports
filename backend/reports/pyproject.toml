@@ -13,6 +13,7 @@ connector = {path = "../../libs/connector"}
 models = {path = "../../libs/models"}
 fastapi = "^0.95.2"
 httpx = "^0.24.0"
+uvicorn = "^0.22.0"
 
 
 [build-system]

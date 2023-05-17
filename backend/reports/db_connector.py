@@ -22,9 +22,13 @@ class Db:
             index=False,
         )
 
-    def get_report_from_equipment_id(self, equipment_id: str) -> str:
-        row = self.session.query(models.Reports).filter(models.Reports.equipment_id == equipment_id).first()
+    def get_report_from_equipment_id(self, equipment_id: str):
+        row = self.session.query(models.Reports).filter(models.Reports.equipment_id == equipment_id).order_by(models.Reports.created_at.desc()).first()
         return row
+    
+    def get_report_from_company_name(self, company_name: str):
+        rows = self.session.query(models.Reports).join(models.Companies, models.Companies.company_id == models.Reports.company_id).filter(models.Companies.name == company_name).all()
+        return rows
     
     def commit(self) -> None:
         self.session.commit()

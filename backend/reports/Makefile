@@ -15,5 +15,8 @@ init:
 	@poetry run pip install --force-reinstall ../../libs/connector
 
 
-test:
+testapi:
 	poetry run python testapi.py
+
+test:
+	poetry run uvicorn main:app --reload
