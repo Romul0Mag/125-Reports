@@ -1,15 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from db_connector import get_session
-from models import Addresses, Reports
+from ...libs.models.models import Addresses, Reports, ReportCreate
  
 
 app = FastAPI()
 
-@app.post("/reports")
-def create_report(report: Reports):
+@app.post("/reports/")
+def create_report(report: ReportCreate, response_model = None):
     session = get_session()
-    new_reports = Reports(**report.dict())
+    new_reports = Reports(
+        company_id=report.company_id,
+        equipment_id=report.equipment_id,
+        user_id=report.user_id,
+        type=report.type
+    )
     session.add(new_reports)
     session.commit()
     session.refresh(new_reports)
