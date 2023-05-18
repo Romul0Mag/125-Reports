@@ -107,21 +107,21 @@ export const commonStyles = StyleSheet.create({
     elevation: 5,
   },
   createReportContainer: {
-    flex: 8,
-    padding: 20,
-    width: "100%",
     backgroundColor: "#14141410",
-    alignItems: "center"
+    paddingTop: 10,
+    paddingRight: 20,
+    paddingBottom: 50,
+    paddingLeft: 20,
   },
   titulo: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
   },
   campoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   rotulo: {
@@ -131,52 +131,52 @@ export const commonStyles = StyleSheet.create({
   campo: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     borderRadius: 5,
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",},
-    
+    resizeMode: "cover",
+  },
+
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-
+    alignItems: "center",
+    justifyContent: "center",
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   card: {
     flex: 1,
     height: 150,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   cardText: {
     color: "black",
     fontWeight: "900",
-    position: 'relative',
+    position: "relative",
     top: 35,
   },
   container_settings: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   card_settings: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#ddd",
   },
   icon_settings: {
     marginRight: 16,
@@ -184,6 +184,6 @@ export const commonStyles = StyleSheet.create({
   text_settings: {
     flex: 1,
     fontSize: 16,
-    color: '#555',
+    color: "#555",
   },
 });
