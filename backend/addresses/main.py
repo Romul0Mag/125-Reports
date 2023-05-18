@@ -1,13 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
-from db_connector import Db
-from fastapi_models import AddressCreate, Address
+from .db_connector import Db
+from .fastapi_models import AddressCreate, Address
 from typing import List
 
-app = FastAPI()
+router = APIRouter()
 
-@app.post("/addresses/", response_model=Address)
+@router.post("/addresses/", response_model=Address)
 def create_report(address: AddressCreate):
     db = Db()
     # convert Pydantic model to DataFrame
@@ -25,7 +25,7 @@ def create_report(address: AddressCreate):
     return Address.from_orm(created_address)
 
 
-@app.get("/addresses/{cep}", response_model=List[Address])
+@router.get("/addresses/{cep}", response_model=List[Address])
 def read_address(cep: str):
     db = Db()
 

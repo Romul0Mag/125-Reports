@@ -1,13 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
-from db_connector import Db
-from fastapi_models import EquipmentBase, EquipmentCreate, Equipment
+from .db_connector import Db
+from .fastapi_models import EquipmentCreate, Equipment
 from typing import List
 
-app = FastAPI()
 
-@app.post("/equipments/", response_model=Equipment)
+router = APIRouter()
+
+@router.post("/equipments/", response_model=Equipment)
 def create_equipment(equipment: EquipmentCreate):
     db = Db()
     df = pd.json_normalize(jsonable_encoder(equipment))
@@ -26,7 +27,7 @@ def create_equipment(equipment: EquipmentCreate):
     return Equipment.from_orm(created_equipment)
 
 
-@app.get("/equipments/{series_number}", response_model=List[Equipment])
+@router.get("/equipments/{series_number}", response_model=List[Equipment])
 def read_equipment(series_number: str):
     db = Db()
 
