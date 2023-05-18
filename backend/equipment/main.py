@@ -25,10 +25,10 @@ def create_equipment(equipment: EquipmentCreate):
 
 
 @app.get("/equipments/{series_number}", response_model=List[Equipment])
-def read_equipment(company_name: str):
+def read_equipment(series_number: str):
     db = Db()
 
-    equipments = db.get_equipment_from_series_number(company_name)
+    equipments = db.get_equipment_from_series_number(series_number)
     if equipments is None:
         raise HTTPException(status_code=404, detail="Equipment not found")
     fast_api_equipment = []

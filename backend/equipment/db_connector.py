@@ -26,8 +26,8 @@ class Db:
         row = self.session.query(models.Equipments).filter(models.Equipments.series_number == series_number).order_by(models.Equipments.created_at.desc()).first()
         return row
     
-    def get_report_from_company_name(self, company_name: str):
-        rows = self.session.query(models.Equipments).join(models.Equipments, models.Companies.company_id == models.Reports.company_id).filter(models.Companies.name == company_name).all()
+    def get_equipments_from_series_number(self, series_number: str):
+        rows = self.session.query(models.Equipments).filter(models.Equipments.series_number == series_number).all()
         return rows
     
     def commit(self) -> None:
