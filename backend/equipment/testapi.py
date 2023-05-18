@@ -5,31 +5,33 @@ import uuid
 
 client = TestClient(app)
 
-def test_create_report():
-    report_data = {
-        "company_id": '99950f0a-6eac-408a-8b5a-1302b1d572b0',
-        "equipment_id": 'c8229bbc-2fb2-4f1d-bc01-0dba8490a569',
-        "user_id": '678ad847-65be-40f6-9c61-348b9e99f29a',
-        "type": "preventiva"
+def test_create_equipment():
+    equipments_data = {
+        "manufacturer": 'Equipment_manufacturer',
+        "model": 'Equipment_model',
+        "power": 'Equipment_power',
+        "series_number": "Equipment_series_number",
+        "fabrication_date": "Equipment_fabrication_date"
     } 
-    response = client.post("/reports/", json=report_data)
+    response = client.post("/equipments/", json=equipments_data)
     assert response.status_code == 200
     data = response.json()
-    assert data["company_id"] == report_data["company_id"]
-    assert data["equipment_id"] == report_data["equipment_id"]
-    assert data["user_id"] == report_data["user_id"]
-    assert data["type"] == report_data["type"]
+    assert data["manufacturer"] == equipments_data["manufacturer"]
+    assert data["model"] == equipments_data["model"]
+    assert data["power"] == equipments_data["power"]
+    assert data["series_number"] == equipments_data["series_number"]
+    assert data["fabrication_date"] == equipments_data["fabrication_date"]
 
 
-def test_read_report():
-    name = "PiriEnterprise"
-    response = client.get(f"/reports/{name}")
+def test_read_equipment():
+    series_number = "Equipment_series_number"
+    response = client.get(f"/equipments/{series_number}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name
     for object in data:
-        print(object["report_id"])
+        print(object["manufacturer"])
 
-#test_create_report()
+#test_create_equipment()
 
-test_read_report()
+test_read_equipment()
