@@ -26,7 +26,7 @@ class Db:
         row = self.session.query(models.Users).filter(models.Users.email == user_email).order_by(models.Users.created_at.desc()).first()
         return row
     
-    def get_user_from_user_email(self, user_email: str):
+    def get_users_from_user_email(self, user_email: str):
         rows = self.session.query(models.Users).filter(models.Users.email == user_email).all()
         return rows
     

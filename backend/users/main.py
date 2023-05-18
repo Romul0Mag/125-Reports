@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
 from db_connector import Db
-from fastapi_models import UserBase, UserCreate, User
+from fastapi_models import UserCreate, User
 from typing import List
 
 app = FastAPI()
@@ -20,7 +20,7 @@ def create_user(user: UserCreate):
     
     created_user = db.get_user_from_user_email(user.email)
     if created_user is None:
-        raise HTTPException(status_code=400, detail="Report not created")
+        raise HTTPException(status_code=400, detail="User not created")
     print(created_user)
     return User.from_orm(created_user)
 
@@ -28,9 +28,9 @@ def create_user(user: UserCreate):
 @app.get("/users/{user_email}", response_model=List[User])
 def read_report(user_email: str):
     db = Db()
-    users = db.get_user_from_user_email(user_email)
+    users = db.get_users_from_user_email(user_email)
     if users is None:
-        raise HTTPException(status_code=404, detail="Report not found")
+        raise HTTPException(status_code=404, detail="User not found")
     fast_api_users = []
     for user in users:
         obj = User.from_orm(user)
