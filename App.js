@@ -9,6 +9,7 @@ import CreateReport from "./src/screens/CreateReport";
 import ViewReports from "./src/screens/ViewReports";
 import Settings from "./src/screens/Settings";
 import UploadCloud from "./src/screens/UploadCloud";
+import ReportDetails from "./src/screens/ReportDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +51,10 @@ export default function App() {
 
         <Stack.Screen name="UploadCloud" options={{ headerShown: false }}>
           {(props) => <UploadCloud {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="ReportDetails" options={{ headerShown: false }}>
+          {(props) => <ReportDetails {...props} GlobalState={GlobalState} />}
         </Stack.Screen>
 
       </Stack.Navigator>
