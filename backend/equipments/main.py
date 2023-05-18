@@ -11,6 +11,7 @@ app = FastAPI()
 def create_equipment(equipment: EquipmentCreate):
     db = Db()
     df = pd.json_normalize(jsonable_encoder(equipment))
+    df['fabrication_date'] = pd.to_datetime(df['fabrication_date'], format="%d/%m/%Y")
     try:
         db.insert_dataframe_equipment(df)
         db.commit()
@@ -18,6 +19,7 @@ def create_equipment(equipment: EquipmentCreate):
         db.rollback()
     
     created_equipment = db.get_equipment_from_series_number(equipment.series_number)
+    print(created_equipment)
     if created_equipment is None:
         raise HTTPException(status_code=400, detail="Equipment not created")
     print(created_equipment)
@@ -28,7 +30,7 @@ def create_equipment(equipment: EquipmentCreate):
 def read_equipment(series_number: str):
     db = Db()
 
-    equipments = db.get_equipment_from_series_number(series_number)
+    equipments = db.get_equipments_from_series_number(series_number)
     if equipments is None:
         raise HTTPException(status_code=404, detail="Equipment not found")
     fast_api_equipment = []

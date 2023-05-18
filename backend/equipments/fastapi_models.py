@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class EquipmentBase(BaseModel):
@@ -6,7 +7,7 @@ class EquipmentBase(BaseModel):
     model: str
     power: str
     series_number: str
-    fabrication_date: str
+    fabrication_date: str | datetime
 
 class EquipmentCreate(EquipmentBase):
     pass
