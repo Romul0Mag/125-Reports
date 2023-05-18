@@ -12,8 +12,6 @@ def test_create_user():
         "email": 'rodrigo.cardoso',
     } 
     response = client.post("/users/", json=user_data)
-    print(response)
-    print(response.status_code)
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == user_data["name"]
@@ -23,13 +21,13 @@ def test_create_user():
 
 def test_read_user():
     user_email = "rodrigo.cardoso"
-    response = client.get(f"/reports/{user_email}")
+    response = client.get(f"/users/{user_email}")
     assert response.status_code == 200
     data = response.json()
-    #assert data["name"] == name
+
     for object in data:
         print(object["name"])
 
-test_create_user()
+#test_create_user()
 
-# test_read_user()
+test_read_user()
