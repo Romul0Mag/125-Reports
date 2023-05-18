@@ -12,7 +12,7 @@ import axios from 'axios';
 export default function CreateReport({ navigation, GlobalState }) {
   const { chosenTask } = GlobalState;
 
-  const [reportType, setReportType] = useState("");
+  const [reportType, setReportType] = useState(1);
 
   const [clientName, setClientName] = useState('');
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
@@ -287,105 +287,114 @@ export default function CreateReport({ navigation, GlobalState }) {
           />
         </View>
 
+        {reportType === 'tipo1' ? (
+          <View>
+            <Text style={commonStyles.titulo}>Medidas do Nobreak</Text>
 
-        <Text style={commonStyles.titulo}>Medidas do Nobreak</Text>
-
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>Tipo de Medição:</Text>
-          <RNPickerSelect
-            style={commonStyles.campo}
-            value={measureType}
-            onValueChange={(itemValue) => setMeasureType(itemValue)}
-            items={[
-              { label: 'Selecione o tipo de medição', value: '' },
-              { label: 'Medição 1', value: 'medicao1' },
-              { label: 'Medição 2', value: 'medicao2' },
-              // Adicione mais opções de tipo de medição conforme necessário
-            ]}
-          />
-        </View>
-
-
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>V:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setV}
-            value={V}
-            placeholder="Digite o V do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
-
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>C:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setC}
-            value={C}
-            placeholder="Digite o C do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>Tipo de Medição:</Text>
+              <RNPickerSelect
+                style={commonStyles.campo}
+                value={measureType}
+                onValueChange={(itemValue) => setMeasureType(itemValue)}
+                items={[
+                  { label: 'Selecione o tipo de medição', value: '' },
+                  { label: 'Medição 1', value: 'medicao1' },
+                  { label: 'Medição 2', value: 'medicao2' },
+                  // Adicione mais opções de tipo de medição conforme necessário
+                ]}
+              />
+            </View>
 
 
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>P:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setP}
-            value={P}
-            placeholder="Digite o P do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>V:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setV}
+                value={V}
+                placeholder="Digite o V do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
 
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>Corrente total:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setTotalCurrent}
-            value={totalCurrent}
-            placeholder="Digite a corrente total do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>C:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setC}
+                value={C}
+                placeholder="Digite o C do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
 
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>Potência total:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setTotalPot}
-            value={totalPot}
 
-            placeholder="Digite a potência total do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>P:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setP}
+                value={P}
+                placeholder="Digite o P do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
 
-        <Text style={commonStyles.titulo}>Preventive Tension Resistance:</Text>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>Corrente total:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setTotalCurrent}
+                value={totalCurrent}
+                placeholder="Digite a corrente total do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
 
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>Resistencia:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setResistance}
-            value={resistance}
-            placeholder="Digite a resistência do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>Potência total:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setTotalPot}
+                value={totalPot}
 
-        <View style={commonStyles.campoContainer}>
-          <Text style={commonStyles.rotulo}>Tensão:</Text>
-          <TextInput
-            style={commonStyles.campo}
-            onChangeText={setTension}
-            value={tension}
-            placeholder="Digite a tensão do nobreak"
-            placeholderTextColor="#CFCFCF"
-          />
-        </View>      
+                placeholder="Digite a potência total do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
+          </View>
+        ) : (
+          <View>
+            <Text style={commonStyles.titulo}>Preventive Tension Resistance:</Text>
+
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>Resistencia:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setResistance}
+                value={resistance}
+                placeholder="Digite a resistência do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>
+
+            <View style={commonStyles.campoContainer}>
+              <Text style={commonStyles.rotulo}>Tensão:</Text>
+              <TextInput
+                style={commonStyles.campo}
+                onChangeText={setTension}
+                value={tension}
+                placeholder="Digite a tensão do nobreak"
+                placeholderTextColor="#CFCFCF"
+              />
+            </View>      
+          </View>
+        ) }
+
+        
+
+        
      
         <Button title="Salvar" onPress={handleSave} />
   
