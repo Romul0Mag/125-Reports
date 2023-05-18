@@ -15,7 +15,7 @@ class Db:
     
     def insert_dataframe_addresses(self, df: pd.DataFrame) -> None:
         df.to_sql(
-            models.Address.__tablename__,
+            models.Addresses.__tablename__,
             self.session.connection(),
             if_exists="append",
             method=pg8000_insert_copy,
@@ -23,8 +23,12 @@ class Db:
         )
 
     def get_address_from_cep(self, cep: str):
-        row = self.session.query(models.Address).filter(models.Address.cep == cep).first()
+        row = self.session.query(models.Addresses).filter(models.Addresses.cep == cep).first()
         return row
+    
+    def get_addresses_from_cep(self, cep: str):
+        rows = self.session.query(models.Addresses).filter(models.Addresses.cep == cep).all()
+        return rows
 
     
     def commit(self) -> None:

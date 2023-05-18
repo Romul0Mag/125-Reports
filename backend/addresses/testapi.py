@@ -34,6 +34,6 @@ def test_read_address():
     for object in data:
         print(object["address_id"])
 
-#test_create_report()
+test_create_address()
 
 test_create_address()

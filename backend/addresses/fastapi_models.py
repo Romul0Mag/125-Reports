@@ -1,16 +1,17 @@
 from pydantic import BaseModel
 
 
-class ReportBase(BaseModel):
-    company_id: str
-    equipment_id: str
-    user_id: str
-    type: str
+class AddressBase(BaseModel):
+    street: str
+    city: str
+    state: str
+    cep: str
+    country: str
 
-class ReportCreate(ReportBase):
+class AddressCreate(AddressBase):
     pass
 
-class Report(ReportBase):
-    report_id: str
+class Address(AddressBase):
+    address_id: str
     class Config:
         orm_mode = True
