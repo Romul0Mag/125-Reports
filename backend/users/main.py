@@ -5,10 +5,8 @@ from .db_connector import Db
 from .fastapi_models import UserCreate, User
 from typing import List
 
-#app = FastAPI()
 router = APIRouter()
 
-#@app.post("/users/", response_model=User)
 @router.post("/users/", response_model=User)
 def create_user(user: UserCreate):
     db = Db()
@@ -27,7 +25,6 @@ def create_user(user: UserCreate):
     return User.from_orm(created_user)
 
 
-#@app.get("/users/{user_email}", response_model=List[User])
 @router.get("/users/{user_email}", response_model=List[User])
 def read_report(user_email: str):
     db = Db()

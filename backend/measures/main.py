@@ -1,14 +1,12 @@
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
 from .db_connector import Db
 from .fastapi_models import MeasureCreate, Measure
 from typing import List
 
-#app = FastAPI()
 router = APIRouter()
 
-#@app.post("/measures/", response_model=Measure)
 @router.post("/measures/", response_model=Measure)
 def create_measure(measure: MeasureCreate):
     db = Db()
@@ -27,7 +25,6 @@ def create_measure(measure: MeasureCreate):
     return Measure.from_orm(created_measure)
 
 
-#@app.get("/measures/{company_name}", response_model=List[Measure])
 @router.get("/measures/{company_name}", response_model=List[Measure])
 def read_measures(company_name: str):
     db = Db()

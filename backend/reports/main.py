@@ -1,14 +1,12 @@
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
 from .db_connector import Db
-from .fastapi_models import ReportBase, ReportCreate, Report
+from .fastapi_models import ReportCreate, Report
 from typing import List
 
-#app = FastAPI()
 router = APIRouter()
 
-#@app.post("/reports/", response_model=Report)
 @router.post("/reports/", response_model=Report)
 def create_report(report: ReportCreate):
     db = Db()
@@ -27,7 +25,6 @@ def create_report(report: ReportCreate):
     return Report.from_orm(created_report)
 
 
-#@app.get("/reports/{company_name}", response_model=List[Report])
 @router.get("/reports/{company_name}", response_model=List[Report])
 def read_report(company_name: str):
     db = Db()

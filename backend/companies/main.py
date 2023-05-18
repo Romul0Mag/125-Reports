@@ -1,14 +1,14 @@
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
 from .db_connector import Db
-from .fastapi_models import CompanyBase, CompanyCreate, Company
+from .fastapi_models import CompanyCreate, Company
 from typing import List
 
-#app = FastAPI()
+
 router = APIRouter()
 
-#@app.post("/companies/", response_model=Company)
+
 @router.post("/companies/", response_model=Company)
 def create_company(company: CompanyCreate):
     db = Db()
@@ -27,7 +27,7 @@ def create_company(company: CompanyCreate):
     return Company.from_orm(created_company)
 
 
-#@app.get("/companies/{company_name}", response_model=List[Company])
+
 @router.get("/companies/{company_name}", response_model=List[Company])
 def read_company(company_name: str):
     db = Db()
