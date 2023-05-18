@@ -1,13 +1,15 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
-from db_connector import Db
-from fastapi_models import PtrCreate, Ptr
+from .db_connector import Db
+from .fastapi_models import PtrCreate, Ptr
 from typing import List
 
-app = FastAPI()
+#app = FastAPI()
+router = APIRouter()
 
-@app.post("/ptrs/", response_model=Ptr)
+#@app.post("/ptrs/", response_model=Ptr)
+@router.post("/ptrs/", response_model=Ptr)
 def create_ptr(ptr: PtrCreate):
     db = Db()
     # convert Pydantic model to DataFrame
@@ -25,7 +27,8 @@ def create_ptr(ptr: PtrCreate):
     return Ptr.from_orm(created_ptr)
 
 
-@app.get("/ptrs/{company_name}", response_model=List[Ptr])
+#@app.get("/ptrs/{company_name}", response_model=List[Ptr])
+@router.get("/ptrs/{company_name}", response_model=List[Ptr])
 def read_ptrs(company_name: str):
     db = Db()
 

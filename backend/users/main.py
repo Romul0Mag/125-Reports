@@ -1,13 +1,15 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import pandas as pd
-from db_connector import Db
-from fastapi_models import UserCreate, User
+from .db_connector import Db
+from .fastapi_models import UserCreate, User
 from typing import List
 
-app = FastAPI()
+#app = FastAPI()
+router = APIRouter()
 
-@app.post("/users/", response_model=User)
+#@app.post("/users/", response_model=User)
+@router.post("/users/", response_model=User)
 def create_user(user: UserCreate):
     db = Db()
     # convert Pydantic model to DataFrame
@@ -25,7 +27,8 @@ def create_user(user: UserCreate):
     return User.from_orm(created_user)
 
 
-@app.get("/users/{user_email}", response_model=List[User])
+#@app.get("/users/{user_email}", response_model=List[User])
+@router.get("/users/{user_email}", response_model=List[User])
 def read_report(user_email: str):
     db = Db()
     users = db.get_users_from_user_email(user_email)

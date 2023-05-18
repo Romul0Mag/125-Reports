@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "example"
+version = "0.1.0"
+description = ""
+authors = ["lhzuin <luishenriquezuinruiz@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^1.4.39"
+pandas = "^2.0.0"
+connector = {path = "../libs/connector"}
+models = {path = "../libs/models"}
+fastapi = "^0.95.2"
+httpx = "^0.24.0"
+uvicorn = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
