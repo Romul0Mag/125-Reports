@@ -1,7 +1,6 @@
 import React from "react";
-import { TextInput, View, Text, ScrollView, Button } from "react-native";
-
-import RNPickerSelect from "react-native-picker-select";
+import { View, Text, ScrollView} from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -10,32 +9,32 @@ import { commonStyles } from "../styles/styles";
 
 export default function ReportDetails({ navigation, GlobalState, route }) {
   const { reportId } = route.params;
-  const reportType = "";
-  const clientName = "";
-  const clientPhoneNumber = "";
-  const clientEmail = "";
-  const companyName = "";
-  const companyPhoneNumber = "";
-  const street = "";
-  const city = "";
-  const state = "";
-  const cep = "";
-  const country = "";
-  const V = "";
-  const C = "";
-  const P = "";
-  const totalCurrent = "";
-  const totalPot = "";
+  const reportType = "Tipo 1";
+  const clientName = "José";
+  const clientPhoneNumber = "(12) 98282-3336";
+  const clientEmail = "jose_junior@gmail.com";
+  const companyName = "PiriTech";
+  const companyPhoneNumber = "(12) 98282-3336";
+  const street = "Rua Nunes Machado, 977";
+  const city = "Araras";
+  const state = "São Paulo";
+  const cep = "13600-021";
+  const country = "Brasil";
+  const V = "50";
+  const C = "20";
+  const P = "15";
+  const totalCurrent = "5";
+  const totalPot = "125";
   const tension = "";
   const resistance = "";
-  const measureType = "";
-  const manufecturer = "";
-  const model = "";
-  const power = "";
-  const seriesNumber = "";
-  const fabricationDate = "";
-  const hasNetworkCard = "";
-  const hasEthCable = "";
+  const measureType = "Medição 1";
+  const manufecturer = "Caixa NoBreaks";
+  const model = "1";
+  const power = "125";
+  const seriesNumber = "12";
+  const fabricationDate = "12/10/2017";
+  const hasNetworkCard = "Sim";
+  const hasEthCable = "Não";
 
   return (
     <View style={commonStyles.screen}>
@@ -183,8 +182,15 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
           <Text style={commonStyles.rotulo}>Tensão:</Text>
           <Text style={commonStyles.rotulo}>{tension}</Text>
         </View>
+        <View style={commonStyles.footerSpecial}>
+          <Icon
+            name="home"
+            size={30}
+            color="#141414"
+            onPress={() => navigation.navigate("Home")}
+          />
+        </View>
       </ScrollView>
-      <Footer navigation={navigation} />
     </View>
   );
 }

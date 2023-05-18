@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 // import ReportDetailsPage from './ReportDetailsPage';
 
 import Header from "../Components/Header";
@@ -14,13 +9,10 @@ import { commonStyles } from "../styles/styles";
 
 export default function ViewReport({ navigation }) {
   const [selectedReportId, setSelectedReportId] = useState(null);
-  const [reports, setReports] = useState([
-    { id: "1", title: "Tese" },
-    { id: "2", title: "Tese" },
-  ]);
+  const [reports, setReports] = useState([{ id: "1", title: "PiriTech" }]);
 
   const handleReportPress = (reportId) => {
-    navigation.navigate('ReportDetails', { reportId });
+    navigation.navigate("ReportDetails", { reportId });
   };
 
   return (
@@ -53,14 +45,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width:"80%",
+    width: "80%",
   },
   table: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,
     marginTop: 20,
-    width:"100%",
+    width: "100%",
   },
   row: {
     flexDirection: "row",
