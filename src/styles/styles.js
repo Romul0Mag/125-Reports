@@ -54,6 +54,25 @@ export const commonStyles = StyleSheet.create({
     borderTopColor: "#14141410",
   },
 
+  footerSpecial: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#14141410",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+    zIndex: 5,
+    borderTopWidth: 1,
+    borderTopColor: "#14141410",
+  },
+
   title: {
     fontSize: 32,
     marginBottom: 16,

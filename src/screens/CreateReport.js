@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { TextInput, View, Text , ScrollView, Button } from "react-native";
+import { TextInput, View, Text, ScrollView, Button } from "react-native";
 
-import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect from "react-native-picker-select";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
 import { commonStyles } from "../styles/styles";
-import axios from 'axios';
+import axios from "axios";
 
 export default function CreateReport({ navigation, GlobalState }) {
-  const { chosenTask } = GlobalState;
-
   const [reportType, setReportType] = useState(1);
 
-  const [clientName, setClientName] = useState('');
+  const [clientName, setClientName] = useState("");
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   // const [selectedDate, setSelectedDate] = useState('');
@@ -25,10 +23,13 @@ export default function CreateReport({ navigation, GlobalState }) {
       company_id: 2,
       equipment_id: 2,
       user_id: 2,
-      types: 'preventiva'
-    })
+      types: "preventiva",
+    });
     try {
-      const response = await axios.post('http://localhost:8000/addresses', reportData);
+      const response = await axios.post(
+        "http://localhost:8000/addresses",
+        reportData
+      );
       // O endereço foi criado com sucesso
       console.log(response.data);
     } catch (error) {
@@ -41,7 +42,7 @@ export default function CreateReport({ navigation, GlobalState }) {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [cep, setCep] = useState("");
-  const [country, setCountry] = useState("");  
+  const [country, setCountry] = useState("");
 
   const [V, setV] = useState("");
   const [C, setC] = useState("");
@@ -51,7 +52,7 @@ export default function CreateReport({ navigation, GlobalState }) {
 
   const [tension, setTension] = useState("");
   const [resistance, setResistance] = useState("");
-  
+
   const [measureType, setMeasureType] = useState("");
   const [manufecturer, setManufecturer] = useState("");
   const [model, setModel] = useState("");
@@ -59,20 +60,21 @@ export default function CreateReport({ navigation, GlobalState }) {
   const [seriesNumber, setSeriesNumber] = useState("");
   const [fabricationDate, setFabricationDate] = useState("");
   const [hasNetworkCard, setHasNetworkCard] = useState("");
-  const [hasEthCable, setHasEthCable] = useState(""); 
-  
+  const [hasEthCable, setHasEthCable] = useState("");
+
   const handleSave = () => {
     // Redirecionar para a página inicial
     navigation.navigate("Home");
   };
-  
-  
+
   return (
     <View style={commonStyles.screen}>
       <Header />
       <ScrollView contentContainerStyle={commonStyles.createReportContainer}>
-        <Text style={commonStyles.titulo}>Relatório de Manutenção Preventiva - Nobreak</Text>
-  
+        <Text style={commonStyles.titulo}>
+          Relatório de Manutenção Preventiva - Nobreak
+        </Text>
+
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Tipo de Relatório:</Text>
           <RNPickerSelect
@@ -80,9 +82,9 @@ export default function CreateReport({ navigation, GlobalState }) {
             value={reportType}
             onValueChange={(itemValue) => setReportType(itemValue)}
             items={[
-              { label: 'Selecione o tipo de relatório', value: '' },
-              { label: 'Tipo 1', value: 'tipo1' },
-              { label: 'Tipo 2', value: 'tipo2' },
+              { label: "Selecione o tipo de relatório", value: "" },
+              { label: "Tipo 1", value: "tipo1" },
+              { label: "Tipo 2", value: "tipo2" },
               // Adicione mais opções de tipo de relatório conforme necessário
             ]}
           />
@@ -121,10 +123,9 @@ export default function CreateReport({ navigation, GlobalState }) {
             placeholderTextColor="#CFCFCF"
           />
         </View>
-    
-  
+
         <Text style={commonStyles.titulo}>Dados do Local</Text>
-  
+
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Nome da empresa:</Text>
           <TextInput
@@ -135,7 +136,7 @@ export default function CreateReport({ navigation, GlobalState }) {
             placeholderTextColor="#CFCFCF"
           />
         </View>
-  
+
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Tel.:</Text>
           <TextInput
@@ -191,13 +192,13 @@ export default function CreateReport({ navigation, GlobalState }) {
           />
         </View>
 
-        <View style={commonStyles.campoContainer}>  
+        <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>País:</Text>
           <TextInput
             style={commonStyles.campo}
             onChangeText={setCountry}
             value={country}
-            placeholder="Digite o país da empresa"  
+            placeholder="Digite o país da empresa"
             placeholderTextColor="#CFCFCF"
           />
         </View>
@@ -212,10 +213,10 @@ export default function CreateReport({ navigation, GlobalState }) {
             value={manufecturer}
             placeholder="Digite o fabricante do nobreak"
             placeholderTextColor="#CFCFCF"
-          />  
+          />
         </View>
 
-        <View style={commonStyles.campoContainer}>  
+        <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Modelo:</Text>
           <TextInput
             style={commonStyles.campo}
@@ -266,9 +267,9 @@ export default function CreateReport({ navigation, GlobalState }) {
             value={hasNetworkCard}
             onValueChange={(itemValue) => setHasNetworkCard(itemValue)}
             items={[
-              { label: 'Selecione', value: '' },
-              { label: 'Sim', value: 'sim' },
-              { label: 'Não', value: 'nao' },
+              { label: "Selecione", value: "" },
+              { label: "Sim", value: "sim" },
+              { label: "Não", value: "nao" },
             ]}
           />
         </View>
@@ -280,14 +281,14 @@ export default function CreateReport({ navigation, GlobalState }) {
             value={hasEthCable}
             onValueChange={(itemValue) => setHasEthCable(itemValue)}
             items={[
-              { label: 'Selecione', value: '' },
-              { label: 'Sim', value: 'sim' },
-              { label: 'Não', value: 'nao' },
+              { label: "Selecione", value: "" },
+              { label: "Sim", value: "sim" },
+              { label: "Não", value: "nao" },
             ]}
           />
         </View>
 
-        {reportType === 'tipo1' ? (
+        {reportType === "tipo1" ? (
           <View>
             <Text style={commonStyles.titulo}>Medidas do Nobreak</Text>
 
@@ -298,14 +299,13 @@ export default function CreateReport({ navigation, GlobalState }) {
                 value={measureType}
                 onValueChange={(itemValue) => setMeasureType(itemValue)}
                 items={[
-                  { label: 'Selecione o tipo de medição', value: '' },
-                  { label: 'Medição 1', value: 'medicao1' },
-                  { label: 'Medição 2', value: 'medicao2' },
+                  { label: "Selecione o tipo de medição", value: "" },
+                  { label: "Medição 1", value: "medicao1" },
+                  { label: "Medição 2", value: "medicao2" },
                   // Adicione mais opções de tipo de medição conforme necessário
                 ]}
               />
             </View>
-
 
             <View style={commonStyles.campoContainer}>
               <Text style={commonStyles.rotulo}>V:</Text>
@@ -328,7 +328,6 @@ export default function CreateReport({ navigation, GlobalState }) {
                 placeholderTextColor="#CFCFCF"
               />
             </View>
-
 
             <View style={commonStyles.campoContainer}>
               <Text style={commonStyles.rotulo}>P:</Text>
@@ -358,7 +357,6 @@ export default function CreateReport({ navigation, GlobalState }) {
                 style={commonStyles.campo}
                 onChangeText={setTotalPot}
                 value={totalPot}
-
                 placeholder="Digite a potência total do nobreak"
                 placeholderTextColor="#CFCFCF"
               />
@@ -366,7 +364,9 @@ export default function CreateReport({ navigation, GlobalState }) {
           </View>
         ) : (
           <View>
-            <Text style={commonStyles.titulo}>Preventive Tension Resistance:</Text>
+            <Text style={commonStyles.titulo}>
+              Preventive Tension Resistance:
+            </Text>
 
             <View style={commonStyles.campoContainer}>
               <Text style={commonStyles.rotulo}>Resistencia:</Text>
@@ -388,16 +388,10 @@ export default function CreateReport({ navigation, GlobalState }) {
                 placeholder="Digite a tensão do nobreak"
                 placeholderTextColor="#CFCFCF"
               />
-            </View>      
+            </View>
           </View>
-        ) }
-
-        
-
-        
-     
+        )}
         <Button title="Salvar" onPress={handleSave} />
-  
       </ScrollView>
       <Footer navigation={navigation} />
     </View>
