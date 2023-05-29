@@ -24,7 +24,7 @@ def test_create_equipment():
 
 def test_read_equipment():
     series_number = "Equipment_series_number"
-    response = client.get(f"/equipments/{series_number}")
+    response = client.get(f"/equipments/series_number={series_number}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name

@@ -20,7 +20,7 @@ def test_create_ptr():
 
 def test_read_ptrs():
     name = "PiriEnterprise"
-    response = client.get(f"/ptrs/{name}")
+    response = client.get(f"/ptrs/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     for object in data:

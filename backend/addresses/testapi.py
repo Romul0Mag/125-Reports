@@ -29,7 +29,7 @@ def test_create_address():
 
 def test_read_address():
     cep = "12228-460"
-    response = client.get(f"/addresses/{cep}")
+    response = client.get(f"/addresses/cep={cep}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name

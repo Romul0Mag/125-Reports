@@ -31,7 +31,7 @@ def test_create_measure():
 
 def test_read_measures():
     name = "PiriEnterprise"
-    response = client.get(f"/measures/{name}")
+    response = client.get(f"/measures/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     for object in data:

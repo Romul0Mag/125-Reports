@@ -25,7 +25,7 @@ def create_user(user: UserCreate):
     return User.from_orm(created_user)
 
 
-@router.get("/users/{user_email}", response_model=List[User])
+@router.get("/users/email={user_email}", response_model=List[User])
 def read_report(user_email: str):
     db = Db()
     users = db.get_users_from_user_email(user_email)

@@ -28,7 +28,7 @@ def create_company(company: CompanyCreate):
 
 
 
-@router.get("/companies/{company_name}", response_model=List[Company])
+@router.get("/companies/company_name={company_name}", response_model=List[Company])
 def read_company(company_name: str):
     db = Db()
 

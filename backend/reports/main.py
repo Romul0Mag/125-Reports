@@ -25,7 +25,7 @@ def create_report(report: ReportCreate):
     return Report.from_orm(created_report)
 
 
-@router.get("/reports/{company_name}", response_model=List[Report])
+@router.get("/reports/company_name={company_name}", response_model=List[Report])
 def read_report(company_name: str):
     db = Db()
 

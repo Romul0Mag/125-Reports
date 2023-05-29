@@ -23,7 +23,7 @@ def test_create_company():
 
 def test_read_company():
     name = "PiriEnterprise"
-    response = client.get(f"/companies/{name}")
+    response = client.get(f"/companies/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     for object in data:

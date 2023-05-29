@@ -23,7 +23,7 @@ def test_create_user():
 
 def test_read_user():
     user_email = "rodrigo.cardoso"
-    response = client.get(f"/users/{user_email}")
+    response = client.get(f"/users/email={user_email}")
     assert response.status_code == 200
     data = response.json()
 

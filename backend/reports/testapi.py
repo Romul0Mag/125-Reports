@@ -25,7 +25,7 @@ def test_create_report():
 
 def test_read_report():
     name = "PiriEnterprise"
-    response = client.get(f"/reports/{name}")
+    response = client.get(f"/reports/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name

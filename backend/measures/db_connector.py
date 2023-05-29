@@ -30,6 +30,14 @@ class Db:
         rows = self.session.query(models.Measures).join(models.Reports, models.Reports.report_id==models.Measures.report_id).join(models.Companies, models.Companies.company_id==models.Reports.company_id).filter(models.Companies.name == company_name).all()
         return rows
     
+    def get_measures_from_report_id(self, report_id: str):
+        rows = self.session.query(models.Measures).filter(models.Measures.report_id == report_id, models.Measures.is_active.is_(True)).order_by(models.Measures.created_at.desc()).all()
+        return rows
+    
+    def get_measures_from_equipment_id(self, equipment_id: str):
+        rows = self.session.query(models.Measures).join(models.Reports, models.Reports.report_id == models.Measures.report_id).filter(models.Reports.equipment_id == equipment_id, models.Measures.is_active.is_(True)).order_by(models.Measures.created_at.desc()).all()
+        return rows
+
     def commit(self) -> None:
         self.session.commit()
 
