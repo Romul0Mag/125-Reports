@@ -6,6 +6,7 @@ from addresses.main import router as addresses_router
 from reports.main import router as reports_router
 from measures.main import router as measures_router
 from users.main import router as users_router
+from photos.main import router as photos_router
 
 app = FastAPI()
 
@@ -16,3 +17,4 @@ app.include_router(addresses_router)
 app.include_router(reports_router)
 app.include_router(measures_router)
 app.include_router(users_router)
+app.include_router(photos_router)

@@ -1,5 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app  # assuming your FastAPI app is named "app" and in the "main.py" file
+from fastapi import FastAPI
+from main import router  # assuming your FastAPI app is named "app" and in the "main.py" file
+
+app = FastAPI()
+app.include_router(router)
 
 client = TestClient(app)
 
