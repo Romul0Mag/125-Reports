@@ -61,6 +61,7 @@ class Addresses(Base):
     state = Column(Text, nullable=False)
     cep = Column(Text, nullable=False)
     country = Column(Text, nullable=False)
+    number = Column(Integer, nullable=True)
 
 
 class Companies(Base):
@@ -120,6 +121,16 @@ class PreventiveTensionResistence(Base):
     tension = Column(Float, nullable=True)
     resistence = Column(Float, nullable=True)
     
+    created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
+    updated_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
+    is_active = Column(Boolean, nullable=False, server_default="TRUE", index=True)
+
+
+class Photos(Base):
+    __tablename__ = "photos"
+    photo_id = Column(UUID, primary_key=True, server_default="gen_random_uuid()")
+    report_id = Column(UUID, ForeignKey(Reports.report_id), nullable=False)
+
     created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
     updated_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
     is_active = Column(Boolean, nullable=False, server_default="TRUE", index=True)
