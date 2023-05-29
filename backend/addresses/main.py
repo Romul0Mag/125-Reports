@@ -25,8 +25,8 @@ def create_report(address: AddressCreate):
     return Address.from_orm(created_address)
 
 
-@router.get("/addresses/{cep}", response_model=List[Address])
-def read_address(cep: str):
+@router.get("/addresses/cep={cep}", response_model=List[Address])
+def read_address_from_cep(cep: str):
     db = Db()
 
     addresses = db.get_addresses_from_cep(cep)
@@ -37,3 +37,12 @@ def read_address(cep: str):
         obj = Address.from_orm(address)
         fast_api_addresses.append(obj)
     return fast_api_addresses
+
+@router.get("/addresses/company_name={company_name}", response_model=Address)
+def read_address_from_company_name(company_name: str):
+    db = Db()
+
+    address = db.get_address_from_company_name(company_name)
+    if address is None:
+        raise HTTPException(status_code=404, detail="Address not found")
+    return Address.from_orm(address)

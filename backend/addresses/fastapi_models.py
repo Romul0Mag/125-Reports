@@ -7,6 +7,7 @@ class AddressBase(BaseModel):
     state: str
     cep: str
     country: str
+    number: int
 
 class AddressCreate(AddressBase):
     pass

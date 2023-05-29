@@ -26,7 +26,7 @@ def create_ptr(ptr: PtrCreate):
     return Ptr.from_orm(created_ptr)
 
 
-@router.get("/ptrs/{company_name}", response_model=List[Ptr])
+@router.get("/ptrs/company_name={company_name}", response_model=List[Ptr])
 def read_ptrs(company_name: str):
     db = Db()
 

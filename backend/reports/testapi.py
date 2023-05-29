@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app  # assuming your FastAPI app is named "app" and in the "main.py" file
-import pandas as pd
-import uuid
+from fastapi import FastAPI
+from main import router  # assuming your FastAPI app is named "app" and in the "main.py" file
+
+app = FastAPI()
+app.include_router(router)
 
 client = TestClient(app)
 
@@ -23,7 +25,7 @@ def test_create_report():
 
 def test_read_report():
     name = "PiriEnterprise"
-    response = client.get(f"/reports/{name}")
+    response = client.get(f"/reports/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name

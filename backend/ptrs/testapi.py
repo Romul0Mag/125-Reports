@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app  # assuming your FastAPI app is named "app" and in the "main.py" file
+from fastapi import FastAPI
+from main import router  # assuming your FastAPI app is named "app" and in the "main.py" file
 
-client = TestClient(app)
+app = FastAPI()
+app.include_router(router)
 
 def test_create_ptr():
     report_data = {
@@ -18,7 +20,7 @@ def test_create_ptr():
 
 def test_read_ptrs():
     name = "PiriEnterprise"
-    response = client.get(f"/ptrs/{name}")
+    response = client.get(f"/ptrs/company_name={name}")
     assert response.status_code == 200
     data = response.json()
     for object in data:

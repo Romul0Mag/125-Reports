@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app  # assuming your FastAPI app is named "app" and in the "main.py" file
-import pandas as pd
-import uuid
+from fastapi import FastAPI
+from main import router  # assuming your FastAPI app is named "app" and in the "main.py" file
+
+app = FastAPI()
+app.include_router(router)
 
 client = TestClient(app)
 
@@ -27,7 +29,7 @@ def test_create_address():
 
 def test_read_address():
     cep = "12228-460"
-    response = client.get(f"/addresses/{cep}")
+    response = client.get(f"/addresses/cep={cep}")
     assert response.status_code == 200
     data = response.json()
     #assert data["name"] == name

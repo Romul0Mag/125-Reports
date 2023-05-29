@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app  # assuming your FastAPI app is named "app" and in the "main.py" file
-import pandas as pd
-import uuid
+from fastapi import FastAPI
+from main import router  # assuming your FastAPI app is named "app" and in the "main.py" file
+
+app = FastAPI()
+app.include_router(router)
 
 client = TestClient(app)
 
@@ -21,7 +23,7 @@ def test_create_user():
 
 def test_read_user():
     user_email = "rodrigo.cardoso"
-    response = client.get(f"/users/{user_email}")
+    response = client.get(f"/users/email={user_email}")
     assert response.status_code == 200
     data = response.json()
 

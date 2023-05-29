@@ -30,6 +30,9 @@ class Db:
         rows = self.session.query(models.Addresses).filter(models.Addresses.cep == cep).all()
         return rows
 
+    def get_address_from_company_name(self, company_name):
+        row = self.session.query(models.Addresses).join(models.Companies, models.Companies.address_id==models.Addresses.address_id).filter(models.Companies.name == company_name).first()
+        return row
     
     def commit(self) -> None:
         self.session.commit()

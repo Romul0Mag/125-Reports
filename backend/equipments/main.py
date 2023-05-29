@@ -27,7 +27,7 @@ def create_equipment(equipment: EquipmentCreate):
     return Equipment.from_orm(created_equipment)
 
 
-@router.get("/equipments/{series_number}", response_model=List[Equipment])
+@router.get("/equipments/series_number={series_number}", response_model=List[Equipment])
 def read_equipment(series_number: str):
     db = Db()
 
