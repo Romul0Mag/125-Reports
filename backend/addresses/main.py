@@ -8,7 +8,7 @@ from typing import List
 router = APIRouter()
 
 @router.post("/addresses/", response_model=Address)
-def create_report(address: AddressCreate):
+def create_address(address: AddressCreate):
     db = Db()
     # convert Pydantic model to DataFrame
     df = pd.json_normalize(jsonable_encoder(address))
