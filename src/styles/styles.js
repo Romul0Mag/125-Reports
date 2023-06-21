@@ -205,4 +205,9 @@ export const commonStyles = StyleSheet.create({
     fontSize: 16,
     color: "#555",
   },
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 10,
+  },
 });

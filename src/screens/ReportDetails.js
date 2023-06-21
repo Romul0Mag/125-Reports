@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, ScrollView} from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import ImagePicker from "react-native-image-picker";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -35,6 +36,32 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
   const fabricationDate = "12/10/2017";
   const hasNetworkCard = "Sim";
   const hasEthCable = "Não";
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // Function to select an image
+  const selectImage = () => {
+    const options = {
+      title: "Selecione uma imagem",
+      mediaType: "photo",
+      quality: 1,
+      storageOptions: {
+        skipBackup: true,
+        path: "images",
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        const uri = response.uri;
+        setSelectedImage(uri);
+      }
+    });
+  };
 
   return (
     <View style={commonStyles.screen}>
@@ -190,7 +217,16 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
             onPress={() => navigation.navigate("Home")}
           />
         </View>
-      </ScrollView>
+        {/* Button to select image */}
+        <TouchableOpacity onPress={selectImage}>
+          <Text style={commonStyles.rotulo}>Selecione uma imagem</Text>
+        </TouchableOpacity>
+
+        {/* Display selected image */}
+        {selectedImage && (
+          <Image source={{ uri: selectedImage }} style={commonStyles.image} />
+        )}
+        </ScrollView>
     </View>
   );
 }
