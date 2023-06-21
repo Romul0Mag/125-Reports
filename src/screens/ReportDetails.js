@@ -5,9 +5,9 @@ import { View, Text, ScrollView, Button, Alert  } from "react-native";
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import ViewShot from "react-native-view-shot";
-import { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import Icon from "react-native-vector-icons/AntDesign";
 import ImagePicker from "react-native-image-picker";
+import * as Sharing from 'expo-sharing';
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -114,50 +114,36 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     requestStoragePermission();
   }, []);
   
-  const createPDF = async () => {
-    if (!hasPermission) {
-      Alert.alert("Permissão de armazenamento negada.");
-      return;
-    }
+  const generateCSV = (data) => {
+    let csvContent = ''; // Cabeçalho do CSV
+  
+    data.forEach((item) => {
+      for (const key in item) {
+        const title = key;
+        const value = item[key];
+        csvContent += `${title}: ${value}\n`; // Adiciona cada par de título-valor em uma nova linha
+      }
+    });
+  
+    return csvContent;
+  };
+  const saveAndShareFile = async (content) => {
+    const fileUri = FileSystem.documentDirectory + 'data.csv';
+    await FileSystem.writeAsStringAsync(fileUri, content, { encoding: FileSystem.EncodingType.UTF8 });
 
-    try {
-      const imagePath = await captureScreen();
-      console.log("Caminho da imagem:", imagePath); // Verifique o caminho da imagem
-      const pdfPath = await createPdfFromImage(imagePath);
-      console.log("pdfPath", pdfPath);
-      Alert.alert("PDF criado e salvo em: " + pdfPath);
-    } catch (err) {
-      console.error("Erro ao criar PDF:", err); // Capture e registre o erro aqui
+    // Verifica se o dispositivo tem uma capacidade de compartilhamento
+    const isAvailable = await Sharing.isAvailableAsync();
+    if (isAvailable) {
+      // Abra o diálogo de compartilhamento
+      await Sharing.shareAsync(fileUri);
+    } else {
+      alert(`O arquivo CSV foi salvo em: ${fileUri}`);
     }
   };
 
-  const captureScreen = () => {
-    return new Promise((resolve, reject) => {
-      viewRef.current.capture().then(uri => {
-        console.log("URI da imagem capturada:", uri); // Adicione esta linha
-        resolve(uri);
-      }).catch(err => reject(err));
-    });
-  };
-
-  const createPdfFromImage = async (imagePath) => {
-    const page = PDFPage.create().setMediaBox(595, 842).drawImage(imagePath, 'jpg', {
-      x: 0,
-      y: 0,
-      width: 595,
-      height: 842,
-    });
-  
-    const pdfPath = FileSystem.documentDirectory + 'example.pdf';
-    console.log("pdfPath = ", pdfPath);
-    const pdfDocument = PDFDocument.create(pdfPath);
-    console.log("pdfDocument = ", pdfDocument);
-    pdfDocument.addPage(page);
-  
-    // Isso garante que a página foi adicionada antes de escrever o documento
-    await pdfDocument.write();
-    console.log("pdfDocument after write= ", pdfDocument);
-    return pdfPath;
+  const handleSave = () => {
+    const csvContent = generateCSV(textData);
+    saveAndShareFile(csvContent);
   };
 
   const reportType = "Tipo 1";
@@ -204,6 +190,33 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
   };
 
  
+  const textData = [
+    { "Tipo de Relatório": reportType,
+      "Nome do cliente": clientName,
+      "Telefone do cliente": clientPhoneNumber,
+      "E-mail do cliente": clientEmail,
+      "Nome da empresa": companyName,
+      "Telefone da empresa": companyPhoneNumber,
+      "Endereço da empresa": street,
+      "Cidade da empresa": city,
+      "Estado da empresa": state,
+      "CEP da empresa": cep,
+      "País da empresa": country,
+      "Fabricante do Nobreak": manufecturer,
+      "Modelo do Nobreak": model,
+      "Número de Série do Nobreak": seriesNumber,
+      "Potência do Nobreak": power,
+      "Data de fabricação do Nobreak": fabricationDate,
+      "Nobreak possui place de rede?": hasNetworkCard,
+      "Nobreak possui cabo Ethernet?": hasEthCable,
+      "Tipo de Medição do Nobreak": measureType,
+      "V do Nobreak": V,
+      "C do Nobreak": C,
+      "P do Nobreak": P,
+      "Corrente total do Nobreak": totalCurrent,
+      "Potência total do Nobreak": totalPot,
+    }
+  ];
   return (
     <View style={commonStyles.screen}>
       <Header />
@@ -359,7 +372,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
       </ViewShot>
       <Button 
         title="Baixar PDF" 
-        onPress={createPDF} 
+        onPress={handleSave} 
         disabled={!isViewShotReady}
       />
       <View style={commonStyles.footerSpecial}>
