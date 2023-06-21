@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity  } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import ImagePicker from "react-native-image-picker";
+import { PDFDocument, PDFText, PDFView } from 'react-native-pdf-lib';
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -68,6 +69,38 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
       }
     } catch (error) {
       console.log("Error:", error.message);
+    }
+  };
+
+  const downloadPDF = async () => {
+    try {
+      // Cria um novo documento PDF
+      const pdfDoc = await PDFDocument.create();
+  
+      // Adiciona o conteúdo do relatório ao documento
+      const text = 'Conteúdo do relatório...'; // Substitua pelo conteúdo real do relatório
+      const page = pdfDoc.addPage();
+      const textWidth = PDFText.widthOfTextAtSize(text, 12); // Ajuste o tamanho da fonte conforme necessário
+      const textHeight = PDFText.heightOfTextAtSize(text, 12);
+      page.drawText(text, {
+        x: (page.getWidth() - textWidth) / 2,
+        y: page.getHeight() - textHeight - 50, // Ajuste a posição vertical conforme necessário
+        size: 12,
+      });
+  
+      // Gera o arquivo PDF em memória
+      const pdfBytes = await pdfDoc.save();
+  
+      // Converte o arquivo PDF em um objeto Blob
+      const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+  
+      // Cria um URL temporário para o Blob
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+  
+      // Inicia o download do arquivo
+      Linking.openURL(pdfUrl);
+    } catch (error) {
+      console.error('Erro ao gerar o PDF:', error);
     }
   };
 
@@ -302,6 +335,10 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
         {selectedImage && (
           <Image source={{ uri: selectedImage }} style={commonStyles.image} />
         )}
+
+        <TouchableOpacity onPress={downloadPDF}>
+          <Text style={commonStyles.rotulo}>Baixar PDF</Text>
+        </TouchableOpacity>
         </ScrollView>
     </View>
   );
