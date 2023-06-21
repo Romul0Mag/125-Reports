@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, ScrollView} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import ImagePicker from "react-native-image-picker";
 
@@ -9,23 +9,99 @@ import Footer from "../Components/Footer";
 import { commonStyles } from "../styles/styles";
 
 export default function ReportDetails({ navigation, GlobalState, route }) {
-  const { reportId } = route.params;
+  const { reportId, equipmentId, type, userId, companyId } = route.params;
+
+  const [clientName, setClientName] = useState("");
+  const [clientPhoneNumber, setClientPhoneNumber] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+
+  const [companyName, setCompanyName] = useState("");
+  const [companyPhoneNumber, setPhoneNumber] = useState("");
+
+  const [V, setV] = useState("");
+  const [C, setC] = useState("");
+  const [P, setP] = useState("");
+  const [totalCurrent, setTotalCurrent] = useState("");
+  const [totalPot, setTotalPot] = useState("");
+
+  const getEquipmentInfo = async (equipmentId) => {
+    try {
+      const equipmentUrl = `http://10.0.2.2:8000/measures/equipment_id=${equipmentId}`;
+      const response = await fetch(equipmentUrl);
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  };
+
+  const getCompanyInfo = async (companyName) => {
+    try {
+      const equipmentUrl = `http://10.0.2.2:8000/companies/company_name=${companyName}`;
+      const response = await fetch(equipmentUrl);
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  };
+
+  const getUserInfo = async (userEmail) => {
+    try {
+      const userUrl = `http://10.0.2.2:8000/users/email=${userEmail}`;
+      const response = await fetch(userUrl);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getEquipmentInfo(equipmentId);
+      setV(data[0].v);
+      setC(data[0].c);
+      setP(data[0].p);
+      setTotalCurrent(data[0].total_current);
+      setTotalPot(data[0].total_pot);
+
+      const companyData = await getCompanyInfo("PiriEnterprise");
+      setCompanyName(companyData[0].name);
+      setPhoneNumber(companyData[0].phone_number);
+
+      const userData = await getUserInfo("luis.ruiz@ga.ita.br");
+      console.log(userData);
+      setClientName(userData[0].name);
+      setClientPhoneNumber(userData[0].phone_number);
+      setClientEmail(userData[0].email);
+
+      c
+    };
+
+    fetchData();
+  }, []);
+
   const reportType = "Tipo 1";
-  const clientName = "José";
-  const clientPhoneNumber = "(12) 98282-3336";
-  const clientEmail = "jose_junior@gmail.com";
-  const companyName = "PiriTech";
-  const companyPhoneNumber = "(12) 98282-3336";
   const street = "Rua Nunes Machado, 977";
   const city = "Araras";
   const state = "São Paulo";
   const cep = "13600-021";
   const country = "Brasil";
-  const V = "50";
-  const C = "20";
-  const P = "15";
-  const totalCurrent = "5";
-  const totalPot = "125";
   const tension = "";
   const resistance = "";
   const measureType = "Medição 1";
