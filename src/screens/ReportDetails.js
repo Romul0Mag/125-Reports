@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { View, Text, ScrollView, Button, Alert  } from "react-native";
+import * as Permissions from 'expo-permissions';
+import * as FileSystem from 'expo-file-system';
+import ViewShot from "react-native-view-shot";
+import { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import Icon from "react-native-vector-icons/AntDesign";
 import ImagePicker from "react-native-image-picker";
 
@@ -96,6 +102,64 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     fetchData();
   }, []);
 
+  const [hasPermission, setHasPermission] = useState(false);
+  const [isViewShotReady, setIsViewShotReady] = useState(false);
+  const viewRef = useRef(null);
+
+  useEffect(() => {
+    async function requestStoragePermission() {
+      const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+      setHasPermission(status === 'granted');
+    }
+    requestStoragePermission();
+  }, []);
+  
+  const createPDF = async () => {
+    if (!hasPermission) {
+      Alert.alert("Permissão de armazenamento negada.");
+      return;
+    }
+
+    try {
+      const imagePath = await captureScreen();
+      console.log("Caminho da imagem:", imagePath); // Verifique o caminho da imagem
+      const pdfPath = await createPdfFromImage(imagePath);
+      console.log("pdfPath", pdfPath);
+      Alert.alert("PDF criado e salvo em: " + pdfPath);
+    } catch (err) {
+      console.error("Erro ao criar PDF:", err); // Capture e registre o erro aqui
+    }
+  };
+
+  const captureScreen = () => {
+    return new Promise((resolve, reject) => {
+      viewRef.current.capture().then(uri => {
+        console.log("URI da imagem capturada:", uri); // Adicione esta linha
+        resolve(uri);
+      }).catch(err => reject(err));
+    });
+  };
+
+  const createPdfFromImage = async (imagePath) => {
+    const page = PDFPage.create().setMediaBox(595, 842).drawImage(imagePath, 'jpg', {
+      x: 0,
+      y: 0,
+      width: 595,
+      height: 842,
+    });
+  
+    const pdfPath = FileSystem.documentDirectory + 'example.pdf';
+    console.log("pdfPath = ", pdfPath);
+    const pdfDocument = PDFDocument.create(pdfPath);
+    console.log("pdfDocument = ", pdfDocument);
+    pdfDocument.addPage(page);
+  
+    // Isso garante que a página foi adicionada antes de escrever o documento
+    await pdfDocument.write();
+    console.log("pdfDocument after write= ", pdfDocument);
+    return pdfPath;
+  };
+
   const reportType = "Tipo 1";
   const street = "Rua Nunes Machado, 977";
   const city = "Araras";
@@ -139,10 +203,17 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     });
   };
 
+ 
   return (
     <View style={commonStyles.screen}>
       <Header />
       <ScrollView contentContainerStyle={commonStyles.createReportContainer}>
+
+       <ViewShot 
+        ref={viewRef} 
+        options={{ format: "jpg", quality: 0.9 }}
+        onLayout={() => setIsViewShotReady(true)}
+      >
         <Text style={commonStyles.titulo}>
           Relatório de Manutenção Preventiva - Nobreak
         </Text>
@@ -285,24 +356,21 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
           <Text style={commonStyles.rotulo}>Tensão:</Text>
           <Text style={commonStyles.rotulo}>{tension}</Text>
         </View>
-        <View style={commonStyles.footerSpecial}>
-          <Icon
-            name="home"
-            size={30}
-            color="#141414"
-            onPress={() => navigation.navigate("Home")}
-          />
-        </View>
-        {/* Button to select image */}
-        <TouchableOpacity onPress={selectImage}>
-          <Text style={commonStyles.rotulo}>Selecione uma imagem</Text>
-        </TouchableOpacity>
-
-        {/* Display selected image */}
-        {selectedImage && (
-          <Image source={{ uri: selectedImage }} style={commonStyles.image} />
-        )}
-        </ScrollView>
+      </ViewShot>
+      <Button 
+        title="Baixar PDF" 
+        onPress={createPDF} 
+        disabled={!isViewShotReady}
+      />
+      <View style={commonStyles.footerSpecial}>
+        <Icon
+          name="home"
+          size={30}
+          color="#141414"
+          onPress={() => navigation.navigate("Home")}
+        />
+      </View>
+      </ScrollView>
     </View>
   );
 }
