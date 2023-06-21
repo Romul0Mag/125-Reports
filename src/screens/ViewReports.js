@@ -1,18 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-// import ReportDetailsPage from './ReportDetailsPage';
-
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-
 import { commonStyles } from "../styles/styles";
 
 export default function ViewReport({ navigation }) {
-  const [selectedReportId, setSelectedReportId] = useState(null);
-  const [reports, setReports] = useState([{ id: "1", title: "PiriTech" }]);
+  const [reports, setReports] = useState([]);
 
-  const handleReportPress = (reportId) => {
-    navigation.navigate("ReportDetails", { reportId });
+  const getReports = async (companyName) => {
+    try {
+      const url = `http://10.0.2.2:8000/reports/company_name=${companyName}`;
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getReports("PiriEnterprise");
+      setReports(data);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleReportPress = (reportId, equipmentId,type, userId, companyId) => {
+    navigation.navigate("ReportDetails", { reportId, equipmentId, type, userId, companyId});
   };
 
   return (
@@ -21,14 +42,13 @@ export default function ViewReport({ navigation }) {
       <View style={commonStyles.body}>
         <View style={styles.container}>
           <View style={styles.table}>
-            {/* Render reports in a table */}
             {reports.map((report) => (
               <TouchableOpacity
-                key={report.id}
+                key={report.report_id}
                 style={styles.row}
-                onPress={() => handleReportPress(report.id)}
+                onPress={() => handleReportPress(report.report_id, report.equipment_id, report.type,report.user_id, report.company_id)}
               >
-                <Text style={styles.title}>{report.title}</Text>
+                <Text style={styles.title}>{report.report_id}</Text>
                 <Text>{report.description}</Text>
               </TouchableOpacity>
             ))}
