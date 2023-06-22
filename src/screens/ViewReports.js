@@ -10,8 +10,10 @@ export default function ViewReport({ navigation }) {
 
   const getReports = async (companyName) => {
     try {
-      const url = `http://10.0.2.2:8000/reports/company_name=${companyName}`;
-      const response = await fetch(url);
+      // const url = `http://10.0.2.2:8000/reports/company_name=${companyName}`;
+      // const response = await fetch(url);
+      setError(true)
+      return undefined;
 
       if (response.ok) {
         const data = await response.json();

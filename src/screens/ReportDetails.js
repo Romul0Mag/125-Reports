@@ -1,11 +1,10 @@
 import CameraButton from './MyCamera';
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, ScrollView, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
 import ViewShot from "react-native-view-shot";
 import Icon from "react-native-vector-icons/AntDesign";
-import ImagePicker from "react-native-image-picker";
 import * as Sharing from "expo-sharing";
 
 
@@ -442,11 +441,13 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
           </View>
           <CameraButton />
         </ViewShot>
-        <Button
-          title="Baixar PDF"
-          onPress={handleSave}
-          disabled={!isViewShotReady}
-        />
+        
+        <View style={styles.container}>
+          <TouchableOpacity style={ commonStyles.button } onPress={handleSave}>
+            <Text style={styles.text}>☁️ Baixar CSV</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={commonStyles.footerSpecial}>
           <Icon
             name="home"
@@ -459,3 +460,19 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     </View>
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+  },
+  button: {
+      alignSelf: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
+  },
+});
