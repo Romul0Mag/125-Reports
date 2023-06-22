@@ -57,6 +57,9 @@ export default function App() {
           {(props) => <ReportDetails {...props} GlobalState={GlobalState} />}
         </Stack.Screen>
 
+        <Stack.Screen name="MyCamera" options={{ headerShown: false }}>
+          {(props) => <ReportDetails {...props} GlobalState={GlobalState} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

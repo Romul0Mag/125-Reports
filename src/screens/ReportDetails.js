@@ -1,11 +1,13 @@
+import CameraButton from './MyCamera';
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, ScrollView, Button } from "react-native";
+import { View, Text, ScrollView, Button, TouchableOpacity } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
 import ViewShot from "react-native-view-shot";
 import Icon from "react-native-vector-icons/AntDesign";
 import ImagePicker from "react-native-image-picker";
 import * as Sharing from "expo-sharing";
+
 
 import Header from "../Components/Header";
 
@@ -255,29 +257,6 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Function to select an image
-  const selectImage = () => {
-    const options = {
-      title: "Selecione uma imagem",
-      mediaType: "photo",
-      quality: 1,
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        const uri = response.uri;
-        setSelectedImage(uri);
-      }
-    });
-  };
 
   const textData = [
     {
@@ -311,6 +290,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     <View style={commonStyles.screen}>
       <Header />
       <ScrollView contentContainerStyle={commonStyles.createReportContainer}>
+
         <ViewShot
           ref={viewRef}
           options={{ format: "jpg", quality: 0.9 }}
@@ -460,6 +440,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
             <Text style={commonStyles.rotulo}>Tensão:</Text>
             <Text style={commonStyles.rotulo}>{tension}</Text>
           </View>
+          <CameraButton />
         </ViewShot>
         <Button
           title="Baixar PDF"
