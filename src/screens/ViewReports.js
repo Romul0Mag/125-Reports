@@ -6,6 +6,7 @@ import { commonStyles } from "../styles/styles";
 
 export default function ViewReport({ navigation }) {
   const [reports, setReports] = useState([]);
+  const [error, setError] = useState(false);
 
   const getReports = async (companyName) => {
     try {
@@ -14,26 +15,71 @@ export default function ViewReport({ navigation }) {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         return data;
       } else {
         console.log("Error:", response.status);
+        setError(true);
+        return undefined;
       }
     } catch (error) {
       console.log("Error:", error.message);
+      setError(true);
+      return undefined;
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getReports("PiriEnterprise");
-      setReports(data);
+      if (data != undefined) {
+        setReports(data);
+      } else {
+        setReports([
+          {
+            company_id: "99950f0a-6eac-408a-8b5a-1302b1d572b0",
+            equipment_id: "c8229bbc-2fb2-4f1d-bc01-0dba8490a569",
+            user_id: "678ad847-65be-40f6-9c61-348b9e99f29a",
+            type: "preventiva",
+            report_id: "7ce7f290-32f4-4bce-8504-a7eca3542d23",
+          },
+          {
+            company_id: "99950f0a-6eac-408a-8b5a-1302b1d572b0",
+            equipment_id: "c8229bbc-2fb2-4f1d-bc01-0dba8490a569",
+            user_id: "678ad847-65be-40f6-9c61-348b9e99f29a",
+            type: "preventiva",
+            report_id: "74b5ef71-f650-4654-a076-f8302f2f5c3a",
+          },
+          {
+            company_id: "99950f0a-6eac-408a-8b5a-1302b1d572b0",
+            equipment_id: "c8229bbc-2fb2-4f1d-bc01-0dba8490a569",
+            user_id: "678ad847-65be-40f6-9c61-348b9e99f29a",
+            type: "corretiva",
+            report_id: "8b38cb5d-dc6f-4932-9d84-62ed3e47aabb",
+          },
+        ]);
+      }
     };
 
     fetchData();
   }, []);
 
-  const handleReportPress = (reportId, equipmentId,type, userId, companyId) => {
-    navigation.navigate("ReportDetails", { reportId, equipmentId, type, userId, companyId});
+  const handleReportPress = (
+    reportId,
+    equipmentId,
+    type,
+    userId,
+    companyId,
+    error
+  ) => {
+    navigation.navigate("ReportDetails", {
+      reportId,
+      equipmentId,
+      type,
+      userId,
+      companyId,
+      error,
+    });
   };
 
   return (
@@ -46,7 +92,16 @@ export default function ViewReport({ navigation }) {
               <TouchableOpacity
                 key={report.report_id}
                 style={styles.row}
-                onPress={() => handleReportPress(report.report_id, report.equipment_id, report.type,report.user_id, report.company_id)}
+                onPress={() =>
+                  handleReportPress(
+                    report.report_id,
+                    report.equipment_id,
+                    report.type,
+                    report.user_id,
+                    report.company_id,
+                    error
+                  )
+                }
               >
                 <Text style={styles.title}>{report.report_id}</Text>
                 <Text>{report.description}</Text>
