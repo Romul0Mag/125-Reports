@@ -1,7 +1,9 @@
-import React from "react";
-import { View, Text, ScrollView} from "react-native";
+import React, { useState }  from "react";
+import { View, Text, ScrollView, TouchableOpacity} from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import ImagePicker from "react-native-image-picker";
+// import ImagePicker from "react-native-image-picker";
+// import { launchImageLibrary } from "react-native-image-picker";
+import CameraButton from './MyCamera';
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -39,29 +41,6 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Function to select an image
-  const selectImage = () => {
-    const options = {
-      title: "Selecione uma imagem",
-      mediaType: "photo",
-      quality: 1,
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        const uri = response.uri;
-        setSelectedImage(uri);
-      }
-    });
-  };
 
   return (
     <View style={commonStyles.screen}>
@@ -209,6 +188,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
           <Text style={commonStyles.rotulo}>Tensão:</Text>
           <Text style={commonStyles.rotulo}>{tension}</Text>
         </View>
+        <CameraButton />
         <View style={commonStyles.footerSpecial}>
           <Icon
             name="home"
@@ -217,15 +197,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
             onPress={() => navigation.navigate("Home")}
           />
         </View>
-        {/* Button to select image */}
-        <TouchableOpacity onPress={selectImage}>
-          <Text style={commonStyles.rotulo}>Selecione uma imagem</Text>
-        </TouchableOpacity>
-
-        {/* Display selected image */}
-        {selectedImage && (
-          <Image source={{ uri: selectedImage }} style={commonStyles.image} />
-        )}
+        
         </ScrollView>
     </View>
   );
