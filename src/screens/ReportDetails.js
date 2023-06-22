@@ -12,6 +12,42 @@ import Header from "../Components/Header";
 
 import { commonStyles } from "../styles/styles";
 
+export const handleSave = (textData, generateCSV, saveAndShareFile) => {
+  const csvContent = generateCSV(textData);
+  saveAndShareFile(csvContent);
+};
+
+export const generateCSV = (data) => {
+  let csvContent = ""; // Cabeçalho do CSV
+
+  data.forEach((item) => {
+    for (const key in item) {
+      const title = key;
+      const value = item[key];
+      csvContent += `${title}: ${value}\n`; // Adiciona cada par de título-valor em uma nova linha
+    }
+  });
+
+  return csvContent;
+};
+export const saveAndShareFile = async (content) => {
+  const fileUri = FileSystem.documentDirectory + "data.csv";
+  await FileSystem.writeAsStringAsync(fileUri, content, {
+    encoding: FileSystem.EncodingType.UTF8,
+  });
+
+  // Verifica se o dispositivo tem uma capacidade de compartilhamento
+  const isAvailable = await Sharing.isAvailableAsync();
+  if (isAvailable) {
+    // Abra o diálogo de compartilhamento
+    await Sharing.shareAsync(fileUri);
+  } else {
+    alert(`O arquivo CSV foi salvo em: ${fileUri}`);
+  }
+};
+
+
+
 export default function ReportDetails({ navigation, GlobalState, route }) {
   const { reportId, equipmentId, type, userId, companyId, error } =
     route.params;
@@ -202,41 +238,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
     }
     requestStoragePermission();
   }, []);
-
-  const generateCSV = (data) => {
-    let csvContent = ""; // Cabeçalho do CSV
-
-    data.forEach((item) => {
-      for (const key in item) {
-        const title = key;
-        const value = item[key];
-        csvContent += `${title}: ${value}\n`; // Adiciona cada par de título-valor em uma nova linha
-      }
-    });
-
-    return csvContent;
-  };
-  const saveAndShareFile = async (content) => {
-    const fileUri = FileSystem.documentDirectory + "data.csv";
-    await FileSystem.writeAsStringAsync(fileUri, content, {
-      encoding: FileSystem.EncodingType.UTF8,
-    });
-
-    // Verifica se o dispositivo tem uma capacidade de compartilhamento
-    const isAvailable = await Sharing.isAvailableAsync();
-    if (isAvailable) {
-      // Abra o diálogo de compartilhamento
-      await Sharing.shareAsync(fileUri);
-    } else {
-      alert(`O arquivo CSV foi salvo em: ${fileUri}`);
-    }
-  };
-
-  const handleSave = () => {
-    const csvContent = generateCSV(textData);
-    saveAndShareFile(csvContent);
-  };
-
+  
   const reportType = "Tipo 1";
   const street = "Rua Nunes Machado, 977";
   const city = "Araras";
@@ -443,7 +445,7 @@ export default function ReportDetails({ navigation, GlobalState, route }) {
         </ViewShot>
         
         <View style={styles.container}>
-          <TouchableOpacity style={ commonStyles.button } onPress={handleSave}>
+          <TouchableOpacity style={ commonStyles.button } onPress={()=>handleSave(textData,generateCSV,saveAndShareFile)}>
             <Text style={styles.text}>☁️ Baixar CSV</Text>
           </TouchableOpacity>
         </View>
