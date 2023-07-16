@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextInput, View, Text, ScrollView, Button } from "react-native";
+import CheckBox from '@react-native-community/checkbox';
 
 import RNPickerSelect from "react-native-picker-select";
 
@@ -10,7 +11,7 @@ import { commonStyles } from "../styles/styles";
 import axios from "axios";
 
 export default function CreateReport({ navigation, GlobalState }) {
-  const [reportType, setReportType] = useState(1);
+  const [reportType, setReportType] = useState("tipo1");
 
   const [clientName, setClientName] = useState("");
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
@@ -67,6 +68,72 @@ export default function CreateReport({ navigation, GlobalState }) {
     navigation.navigate("Home");
   };
 
+  // Function to copy data from the last report
+  const copyLastReport = () => {
+    setClientName("Zuin");
+    setClientPhoneNumber("62992819494");
+    setClientEmail("luis.ruiz@ga.ita.br");
+    setCompanyName("PiriEnterprise");
+    setPhoneNumber("");
+    setStreet("Rua Nunes Machado, 977");
+    setCity("Araras");
+    setState("São Paulo");
+    setCep("13600-021");
+    setCountry("Brasil");
+    setV("23.4");
+    setC("1.11");
+    setP("13.3");
+    setTotalCurrent("7.11");
+    setTotalPot("17.99");
+    setTension("");
+    setResistance("");
+    setMeasureType("");
+    setManufecturer("");
+    setModel("1");
+    setPower("125");
+    setSeriesNumber("12");
+    setFabricationDate("12/10/2017");
+    setHasNetworkCard("Sim");
+    setHasEthCable("Não");
+ };
+  const erasableLastReport = () => {
+    setClientName("");
+    setClientPhoneNumber("");
+    setClientEmail("");
+    setCompanyName("");
+    setPhoneNumber("");
+    setStreet("");
+    setCity("");
+    setState("");
+    setCep("");
+    setCountry("");
+    setV("");
+    setC("");
+    setP("");
+    setTotalCurrent("");
+    setTotalPot("");
+    setTension("");
+    setResistance("");
+    setMeasureType("");
+    setManufecturer("");
+    setModel("");
+    setPower("");
+    setSeriesNumber("");
+    setFabricationDate("");
+    setHasNetworkCard("");
+    setHasEthCable("");
+  };
+  const [isLastReportCopied, setIsLastReportCopied] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsButtonClicked(!isButtonClicked);
+    if (!isButtonClicked) {
+      copyLastReport();
+    } else {
+      erasableLastReport();
+    }
+  };
   return (
     <View style={commonStyles.screen}>
       <Header />
@@ -74,11 +141,25 @@ export default function CreateReport({ navigation, GlobalState }) {
         <Text style={commonStyles.titulo}>
           Relatório de Manutenção Preventiva - Nobreak
         </Text>
-
+        <View style={commonStyles.campoContainer}>
+          <Button title="Copiar último relatório" onPress={handleButtonClick} />
+        </View>
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Tipo de Relatório:</Text>
           <RNPickerSelect
-            style={commonStyles.campo}
+            placeholder={{}}
+            style={{
+              inputAndroid: { // estilos para Android
+                flex: 1,
+                borderWidth: 1,
+                borderColor: "#ccc",
+                padding: 10,
+                borderRadius: 5,
+              },
+              inputIOS: { // estilos para iOS
+                ...commonStyles.campo,
+              },
+            }}
             value={reportType}
             onValueChange={(itemValue) => setReportType(itemValue)}
             items={[
@@ -87,6 +168,10 @@ export default function CreateReport({ navigation, GlobalState }) {
               { label: "Tipo 2", value: "tipo2" },
               // Adicione mais opções de tipo de relatório conforme necessário
             ]}
+          />
+          <TextInput
+            style={commonStyles.campo}
+            value={reportType}
           />
         </View>
 
@@ -263,7 +348,19 @@ export default function CreateReport({ navigation, GlobalState }) {
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Possui placa de rede?</Text>
           <RNPickerSelect
-            style={commonStyles.campo}
+            placeholder={{}}
+            style={{
+              inputAndroid: { // estilos para Android
+                flex: 1,
+                borderWidth: 1,
+                borderColor: "#ccc",
+                padding: 10,
+                borderRadius: 5,
+              },
+              inputIOS: { // estilos para iOS
+                ...commonStyles.campo,
+              },
+            }}
             value={hasNetworkCard}
             onValueChange={(itemValue) => setHasNetworkCard(itemValue)}
             items={[
@@ -272,12 +369,28 @@ export default function CreateReport({ navigation, GlobalState }) {
               { label: "Não", value: "nao" },
             ]}
           />
+          <TextInput
+            style={commonStyles.campo}
+            value={hasNetworkCard}
+          />
         </View>
 
         <View style={commonStyles.campoContainer}>
           <Text style={commonStyles.rotulo}>Possui cabo Ethernet?</Text>
           <RNPickerSelect
-            style={commonStyles.campo}
+            placeholder={{}}
+            style={{
+              inputAndroid: { // estilos para Android
+                flex: 1,
+                borderWidth: 1,
+                borderColor: "#ccc",
+                padding: 10,
+                borderRadius: 5,
+              },
+              inputIOS: { // estilos para iOS
+                ...commonStyles.campo,
+              },
+            }}
             value={hasEthCable}
             onValueChange={(itemValue) => setHasEthCable(itemValue)}
             items={[
@@ -285,6 +398,10 @@ export default function CreateReport({ navigation, GlobalState }) {
               { label: "Sim", value: "sim" },
               { label: "Não", value: "nao" },
             ]}
+          />
+          <TextInput
+            style={commonStyles.campo}
+            value={hasEthCable}
           />
         </View>
 
@@ -295,7 +412,19 @@ export default function CreateReport({ navigation, GlobalState }) {
             <View style={commonStyles.campoContainer}>
               <Text style={commonStyles.rotulo}>Tipo de Medição:</Text>
               <RNPickerSelect
-                style={commonStyles.campo}
+                placeholder={{}}
+                style={{
+                  inputAndroid: { // estilos para Android
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: "#ccc",
+                    padding: 10,
+                    borderRadius: 5,
+                  },
+                  inputIOS: { // estilos para iOS
+                    ...commonStyles.campo,
+                  },
+                }}
                 value={measureType}
                 onValueChange={(itemValue) => setMeasureType(itemValue)}
                 items={[
@@ -304,6 +433,10 @@ export default function CreateReport({ navigation, GlobalState }) {
                   { label: "Medição 2", value: "medicao2" },
                   // Adicione mais opções de tipo de medição conforme necessário
                 ]}
+              />
+              <TextInput
+                style={commonStyles.campo}
+                value={measureType}
               />
             </View>
 
